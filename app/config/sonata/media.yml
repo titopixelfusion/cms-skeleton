@@ -1,0 +1,83 @@
+sonata_media:
+    class:
+        media: AppBundle\Entity\Media\Media
+        gallery: AppBundle\Entity\Media\Gallery
+        gallery_has_media: AppBundle\Entity\Media\GalleryHasMedia
+        category: AppBundle\Entity\Classification\Category
+
+    db_driver: doctrine_orm # | doctrine_mongodb
+    default_context: default
+    contexts:
+        default:
+            download:
+                mode: http # X-Sendfile | http
+            providers:
+                - sonata.media.provider.dailymotion
+                - sonata.media.provider.youtube
+                - sonata.media.provider.image
+                - sonata.media.provider.file
+                - sonata.media.provider.vimeo
+            formats:
+                small: { width: 100, quality: 100}
+                big:   { width: 970 , quality: 100}
+        news:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                abstract: { width: 100, quality: 100}
+                wide:     { width: 820, quality: 100}
+
+        sonata_collection:
+            providers:
+              - sonata.media.provider.image
+            formats:
+                preview: { width: 100, quality: 100}
+                wide:    { width: 820, quality: 100}
+
+        sonata_category:
+            providers:
+              - sonata.media.provider.image
+            formats:
+                preview: { width: 100, quality: 100}
+                wide:    { width: 820, quality: 100}
+
+        product_catalog:
+            providers:
+                - sonata.media.provider.image
+            formats:
+                preview:   { width: 100, quality: 100}
+                small:     { width: 300, quality: 100}
+                large:     { width: 750, quality: 100}
+    cdn:
+        server:
+            path: %sonata_media.cdn.host%
+    filesystem:
+        local:
+            directory: %kernel.root_dir%/../web/uploads/media
+            create: true
+    providers:
+        file:
+            # the resizer must be set to false, otherwhise this can delete icon files from the fs
+            resizer: false
+        image:
+           thumbnail: sonata.media.thumbnail.format
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#            thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+        vimeo:
+            thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+        youtube:
+            thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+        dailymotion:
+            thumbnail: sonata.media.thumbnail.format          # default value
+#           thumbnail: sonata.media.thumbnail.consumer.format # can be used to dispatch the resize action to async task
+#           thumbnail: sonata.media.thumbnail.liip_imagine    # use the LiipImagineBundle to resize the image
+    pixlr:
+        enabled: false
+        referrer: Demo
+    resizer:
+        simple:
+            mode:  inset # outbound

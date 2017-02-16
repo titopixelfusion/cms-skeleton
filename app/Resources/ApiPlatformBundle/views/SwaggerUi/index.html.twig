@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% if title %}{{ title }} - {% endif %}API Platform</title>
+
+    <link href="{{ asset('bundles/apiplatform/swagger-ui/css/typography.css') }}" media="screen" rel="stylesheet">
+    <link href="{{ asset('bundles/apiplatform/swagger-ui/css/reset.css') }}" media="screen" rel="stylesheet">
+    <link href="{{ asset('bundles/apiplatform/swagger-ui/css/screen.css') }}" media="screen" rel="stylesheet">
+    <link href="{{ asset('bundles/apiplatform/swagger-ui/css/reset.css') }}" media="print" rel="stylesheet">
+    <link href="{{ asset('bundles/apiplatform/swagger-ui/css/print.css') }}" media="print" rel="stylesheet">
+
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/object-assign-pollyfill.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/jquery-1.8.0.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/jquery.slideto.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/jquery.wiggle.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/jquery.ba-bbq.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/handlebars-4.0.5.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/lodash.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/backbone-min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/swagger-ui.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/highlight.9.1.0.pack.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/jsoneditor.min.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/marked.js') }}"></script>
+    <script src="{{ asset('bundles/apiplatform/swagger-ui/lib/swagger-oauth.js') }}"></script>
+
+    <script>
+        $(function () {
+            window.swaggerUi = new SwaggerUi({
+                url: '{{ path('api_doc', {'_format': 'json'} ) }}',
+                spec: {{ spec|replace({'<': '\u003c'})|raw }},
+                dom_id: 'swagger-ui-container',
+                supportedSubmitMethods: ['get', 'post', 'put', 'delete'],
+                onComplete: function() {
+                    $('pre code').each(function(i, e) {
+                        hljs.highlightBlock(e)
+                    });
+
+                    {% if operationId is not null %}
+                        {% set domId = shortName ~ '_' ~ operationId %}
+                        {% set id = app.request.attributes.get('id') %}
+
+                        var queryParameters = {{ app.request.query.all()|json_encode|replace({'<': '\u003c'})|raw }};
+                        $('#{{ domId|escape('js') }} form.sandbox input.parameter').each(function (i, e) {
+                            var $e = $(e);
+                            var name = $e.attr('name');
+
+                            if (name in queryParameters) {
+                                $e.val(queryParameters[name]);
+                            }
+                        });
+
+                        {% if id %}
+                            $('#{{ domId|escape('js') }} form.sandbox input[name="id"]').val('{{ id|escape('js') }}');
+                        {% endif %}
+
+                        $('#{{ domId|escape('js') }} form.sandbox').submit();
+                        document.location.hash = '#!/{{ shortName|escape('js') }}/{{ operationId|escape('js') }}';
+                    {% endif %}
+                },
+                onFailure: function() {
+                    log('Unable to Load SwaggerUI');
+                },
+                docExpansion: 'list',
+                jsonEditor: false,
+                defaultModelRendering: 'schema',
+                showRequestHeaders: true
+            });
+
+            window.swaggerUi.load();
+
+            function log() {
+                if ('console' in window) {
+                    console.log.apply(console, arguments);
+                }
+            }
+        });
+    </script>
+</head>
+
+<body class="swagger-section">
+    <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+    <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+
+    <div class="swagger-ui-wrap">
+        <div class="container">
+            <div id="formats" class="footer" style="text-align: right">
+                Available formats:
+                {% for format in formats|keys %}
+                    <a href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')|merge({'_format': format})) }}">{{ format }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

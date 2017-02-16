@@ -1,0 +1,10 @@
+imports:
+    - { resource: sonata/admin.yml }
+    - { resource: sonata/block.yml }
+    - { resource: sonata/classification.yml }
+    - { resource: sonata/formatter.yml }
+    - { resource: sonata/media.yml }
+    - { resource: sonata/news.yml }
+    - { resource: sonata/notification.yml }
+    - { resource: sonata/page.yml }
+    - { resource: sonata/user.yml }
