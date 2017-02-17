@@ -1,0 +1,78 @@
+---
+- include: provision.yml
+- hosts: all
+  roles:
+    - role: fail2ban
+      become: yes
+      become_method: sudo
+      tags:
+        - fail2ban
+    - role: deployer
+      become: yes
+      become_method: sudo
+      tags:
+        - deployer
+  vars:
+    nginx_worker_processes: 1
+    nginx_worker_connections: 1024
+    phpfpm_www_listen: /var/run/php/php7.0-fpm.sock
+  tasks:
+    - name: copy gitconfig file
+      copy:
+         src=templates/gitconfig
+         dest=~/.gitconfig
+         owner={{ ansible_ssh_user }}
+         group={{ ansible_ssh_user }}
+         mode=0644
+
+    - name: copy bash_aliases file
+      copy:
+         src=templates/bash_aliases
+         dest=~/.bash_aliases
+         owner={{ ansible_ssh_user }}
+         group={{ ansible_ssh_user }}
+         mode=0644
+
+    - name: switch to /var/www after login
+      lineinfile:
+        dest=/home/{{ ansible_ssh_user }}/.bashrc
+        line="cd /var/www"
+        regexp="^cd \/var/www"
+        state=present
+        insertafter=EOF
+        create=True
+
+    - name: create /var/www directories
+      sudo: yes
+      file: path="{{ item }}" state=directory mode=0777
+      with_items:
+         - "{{ app_path }}/webapp"
+         - "{{ app_path }}/api"
+
+    - name: setup virtual hosts
+      sudo: yes
+      template:
+        dest=/etc/nginx/conf.d/{{ item.server_name }}.conf
+        src=templates/nginx-vhost.j2
+        owner=root
+        group=root
+        mode=644
+      with_items:
+        - server_name: "{{ hostname }}"
+          root_dir: "{{ app_path }}/webapp/current/public"
+        - server_name: "api.{{ hostname }}"
+          root_dir: "{{ app_path }}/api/current/public"
+
+    - name: reload nginx
+      sudo: yes
+      service: name=nginx state=reloaded
+
+    - name: set queue config
+      sudo: yes
+      template:
+        src=templates/queue.conf
+        dest=/etc/supervisor/conf.d/tnz-portal-{{ env }}-queue.conf
+
+    - name: restart queue
+      sudo: yes
+      supervisorctl: name=tnz-portal-{{ env }}-queue state=restarted

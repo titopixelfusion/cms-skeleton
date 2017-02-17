@@ -1,5 +1,6 @@
 sonata_notification:
     class:
         message: AppBundle\Entity\Notification\Message
-
     backend: sonata.notification.backend.postpone
+    admin:
+        enabled: true

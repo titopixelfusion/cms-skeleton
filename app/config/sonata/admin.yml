@@ -1,4 +1,6 @@
 sonata_admin:
+    templates:
+        layout: SonataAdminBundle::standard_layout.html.twig
     assets:
         stylesheets:
             - bundles/sonatacore/vendor/bootstrap/dist/css/bootstrap.min.css

@@ -1,0 +1,2 @@
+[dev]
+dev ansible_ssh_host=52.65.67.82 ansible_ssh_user=pixelfusion db_user=tnz_dev db_name=tnz_dev hostname=tnzdev.pixelfusion.co.nz app_path=/var/www/dev env=dev

@@ -1,0 +1,2 @@
+[prod]
+prod ansible_ssh_host=TO.BE.DECIDED.!! ansible_ssh_user=pixelfusion db_user=tnz_prod db_name=tnz_prod hostname=my.tourismnewzealand.com app_path=/var/www/prod env=prod

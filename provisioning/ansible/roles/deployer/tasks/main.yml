@@ -1,0 +1,6 @@
+---
+- name: download deployer.phar
+  get_url: url="{{ deployer_in_url }}" dest="{{ deployer_in_path }}"
+
+- name: make deployer.phar executable
+  file: path="{{ deployer_in_path }}" state=file mode=755

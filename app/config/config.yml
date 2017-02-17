@@ -4,7 +4,7 @@ imports:
     - { resource: sonata.yml }
     - { resource: "@AppBundle/Resources/config/cache.xml" }
 
-# Put parameters here that don't need to change on each machine where the app is deployed
+# Put parameters here that don"t need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
@@ -21,7 +21,7 @@ framework:
     validation:      { enable_annotations: true }
     serializer:      { enable_annotations: true }
     templating:
-        engines: ['twig']
+        engines: ["twig"]
     default_locale:  "%locale%"
     trusted_hosts:   ~
     trusted_proxies: ~
@@ -35,13 +35,12 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     base_template_class: Sonata\CacheBundle\Twig\TwigTemplate14
-    form:
-        resources:
-            - 'SonataFormatterBundle:Form:formatter.html.twig'
-            - 'SonataMediaBundle:Form:media_widgets.html.twig'
-            - 'SonataCoreBundle:Form:datepicker.html.twig'
-            - 'SonataCoreBundle:Form:colorpicker.html.twig'
-    exception_controller: 'FOS\RestBundle\Controller\ExceptionController::showAction'
+    form_themes:
+        - "SonataFormatterBundle:Form:formatter.html.twig"
+        - "SonataMediaBundle:Form:media_widgets.html.twig"
+        - "SonataCoreBundle:Form:datepicker.html.twig"
+        - "SonataCoreBundle:Form:colorpicker.html.twig"
+    exception_controller: "FOS\RestBundle\Controller\ExceptionController::showAction"
 
 doctrine:
     dbal:
@@ -92,9 +91,9 @@ cmf_routing:
             router.default: 100
 
 api_platform:
-    title: 'Pixel Fusion'
-    description: 'Demo API'
-    version: '0.0.1'
+    title: "Pixel Fusion"
+    description: "Demo API"
+    version: "0.0.1"
     enable_fos_user: true
 
 assetic:

@@ -26,8 +26,8 @@ sonata_formatter:
                 - sonata.media.formatter.twig
     ckeditor:
         templates:
-            browser: 'SonataFormatterBundle:Ckeditor:browser.html.twig'
-            upload: 'SonataFormatterBundle:Ckeditor:upload.html.twig'
+            browser: "SonataFormatterBundle:Ckeditor:browser.html.twig"
+            upload: "SonataFormatterBundle:Ckeditor:upload.html.twig"
 
 # This section can be used to include the SonataMediaBundle with CKEDITOR
 #  => https://sonata-project.org/bundles/media/master/doc/reference/extra.html#ckeditor-integration

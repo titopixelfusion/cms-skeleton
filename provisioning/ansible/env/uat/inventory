@@ -1,0 +1,2 @@
+[uat]
+uat ansible_ssh_host=52.65.67.82 ansible_ssh_user=pixelfusion db_user=tnz_uat db_name=tnz_uat hostname=tnzuat.pixelfusion.co.nz app_path=/var/www/uat env=uat
