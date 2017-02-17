@@ -1,2 +1,3 @@
 AppBundle\Entity\User\User: ~
 AppBundle\Entity\User\Group: ~
+AppBundle\Entity\Page\Page: ~
