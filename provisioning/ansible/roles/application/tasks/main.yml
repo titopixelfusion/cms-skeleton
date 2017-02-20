@@ -1,55 +1,26 @@
 ---
-# API
-- stat: path={{ app_path }}/api/vendor
-  register: api_vendordir
+- stat: path={{ app_path }}/vendor
+  register: vendordir
 
-- name: make sure applicable folders are writable (api)
+- name: make sure applicable folders are writable
   file:
     path={{ item }}
     state=directory
     mode=0777
     recurse=yes
   with_items:
-    - "{{ app_path }}/api/storage"
-    # - "{{ app_path }}/api/public/assets"
+    - "{{ app_path }}/app/cache"
+    - "{{ app_path }}/app/logs"
+    - "{{ app_path }}/web/uploads"
 
-- name: composer install (api)
-  when: not api_vendordir.stat.exists
-  composer: command=install working_dir={{ app_path }}/api no_dev={{ composer_no_dev }}
+- name: composer install
+  when: not vendordir.stat.exists
+  composer: command=install working_dir={{ app_path }} no_dev={{ composer_no_dev }}
   register: composer_install
 
-- stat: path={{ app_path }}/api/.env
-  register: api_envfile
+- stat: path={{ app_path }}/app/config/parameters.yml
+  register: parameters_file
 
-- name: copy api .env.example to .env (api)
-  when: not api_envfile.stat.exists
-  command: cp {{ app_path }}/api/.env.example {{ app_path }}/api/.env
-
-- name: artisan key:generate
-  when: composer_install.changed
-  shell: php {{ app_path }}/api/artisan key:generate
-
-# Webapp
-- name: make sure applicable folders are writable (webapp)
-  file:
-    path={{ item }}
-    state=directory
-    mode=0777
-    recurse=yes
-  with_items:
-    - "{{ app_path }}/webapp/storage"
-    # - "{{ app_path }}/webapp/public/assets"
-
-- stat: path={{ app_path }}/webapp/vendor
-  register: webapp_vendordir
-
-- name: composer install (webapp)
-  when: not webapp_vendordir.stat.exists
-  composer: command=install working_dir={{ app_path }}/webapp no_dev={{ composer_no_dev }}
-
-- stat: path={{ app_path }}/webapp/.env
-  register: webapp_envfile
-
-- name: copy .env.example to .env (webapp)
-  when: not webapp_envfile.stat.exists
-  command: cp {{ app_path }}/webapp/.env.example {{ app_path }}/webapp/.env
+- name: copy parameters file
+  when: not parameters_file.stat.exists
+  command: cp {{ app_path }}/app/config/parameters.yml{.dist,}

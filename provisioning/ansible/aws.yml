@@ -67,12 +67,6 @@
       sudo: yes
       service: name=nginx state=reloaded
 
-    - name: set queue config
-      sudo: yes
-      template:
-        src=templates/queue.conf
-        dest=/etc/supervisor/conf.d/tnz-portal-{{ env }}-queue.conf
-
     - name: restart queue
       sudo: yes
       supervisorctl: name=tnz-portal-{{ env }}-queue state=restarted

@@ -44,11 +44,7 @@
         mode=644
       with_items:
         - server_name: "{{ hostname }}"
-          root_dir: /vagrant/webapp/public
-        - server_name: "api.{{ hostname }}"
-          root_dir: /vagrant/api/public
-        - server_name: "test.api.{{ hostname }}"
-          root_dir: /vagrant/api/public
+          root_dir: /vagrant/cms-skeleton/web
 
     - name: reload nginx
       sudo: yes

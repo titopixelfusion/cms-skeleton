@@ -4,7 +4,7 @@ server {
     server_name {{ item.server_name }};
     root {{ item.root_dir }};
 
-    index index.php index.html;
+    index app.php index.php index.html;
 
     error_log /var/log/nginx/error-{{ item.server_name }}.log;
     access_log /var/log/nginx/access-{{ item.server_name }}.log combined;
@@ -18,9 +18,8 @@ server {
 
     # add_header Public-Key-Pins 'pin-sha256="{public_key_pin}"; max-age=15768000';
 
-
     location / {
-        try_files $uri $uri/ /index.php?$query_string;
+        try_files $uri $uri/ /app.php?$query_string;
     }
 
     client_max_body_size 100m;
@@ -32,7 +31,7 @@ server {
         add_header Pragma public;
         add_header Cache-Control "public";
 
-        try_files $uri $uri/ /index.php?$query_string;
+        try_files $uri $uri/ /app.php?$query_string;
     }
 
     # pass the PHP scripts to FastCGI server from upstream phpfcgi

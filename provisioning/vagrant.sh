@@ -3,17 +3,7 @@
 PROVISIONING_PATH=`dirname $0`
 
 # The paths that are set here must match the ones expected on the virtual host
-API_PATH=$PROVISIONING_PATH/../api
-APP_PATH=$PROVISIONING_PATH/../webapp
-
-echo
-echo '############### PROVISIONING VM ###############'
-echo
-echo 'Cloning repos...'
-echo
-
-git clone -b develop git@bitbucket.org:PixelFusion/tourismnz-api.git $API_PATH
-git clone -b develop git@bitbucket.org:PixelFusion/tourismnz-webapp.git $APP_PATH
+CMS_PATH=$PROVISIONING_PATH/..
 
 pushd $PROVISIONING_PATH
 
@@ -37,5 +27,5 @@ else
   echo '############################################'
   echo
   sleep 2
-  open http://tourismnz.dev
+  open http://cms-skeleton.dev
 fi

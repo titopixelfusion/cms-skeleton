@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 options = {
-  :project => 'tourismnz',
-  :aliases => ['api', 'test.api'],
+  :project => 'cms-skeleton',
+  :aliases => ['cms', 'cms.api'],
   :memory => "2048",
   :debug => false
 }
@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "10.10.10.10"
   config.ssh.forward_agent = true
 
-  config.vm.synced_folder "../", "/vagrant", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp']
+  config.vm.synced_folder "../", "/vagrant/cms-skeleton", type: "nfs", mount_options: ['rw', 'vers=3', 'tcp']
 
   config.vm.define options[:project]
   config.vm.hostname = options[:project] + ".dev"
@@ -41,7 +41,7 @@ Vagrant.configure(2) do |config|
       db_user: "vagrant",
       db_pass: "vagrant",
       db_name: "vagrant",
-      app_path: "/vagrant",
+      app_path: "/vagrant/cms-skeleton",
       composer_no_dev: "no",
       phpfpm_display_errors: "On"
     }

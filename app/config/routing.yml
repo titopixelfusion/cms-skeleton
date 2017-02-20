@@ -51,3 +51,7 @@ sonata_user_register:
 sonata_user_change_password:
     resource: "@SonataUserBundle/Resources/config/routing/sonata_change_password_1.xml"
     prefix: /profile
+
+blog:
+    resource: '@SonataNewsBundle/Resources/config/routing/news.xml'
+    prefix: /blog

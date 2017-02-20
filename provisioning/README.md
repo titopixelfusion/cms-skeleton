@@ -1,8 +1,8 @@
-# Tourism NZ Provisioning
+# CMS Skeleton
 
 This repository contains everything you need to get started with development for this project. Once you have everything installed that is mentioned under the prerequisites below you can run the following command locally to check out the required repositories and setup the project.
 
-    mkdir tourismnz && cd tourismnz && git clone git@bitbucket.org:PixelFusion/tourismnz-provisioning.git provisioning && bash provisioning/vagrant.sh
+    git clone git@github.com:titopixelfusion/cms-skeleton.git && cd cms-skeleton && bash provisioning/vagrant.sh
 
 ## Prerequisites
 
