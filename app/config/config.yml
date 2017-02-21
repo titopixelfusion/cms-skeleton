@@ -58,7 +58,6 @@ doctrine:
         #path:     "%database_path%"
         types:
             json: Sonata\Doctrine\Types\JsonType
-            currency: Sonata\Component\Currency\CurrencyDoctrineType
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"

@@ -1,10 +1,10 @@
 ---
-- name: install php7.0-fpm
-  apt: pkg=php7.0-fpm state=latest
+- name: install php7.1-fpm
+  apt: pkg=php7.1-fpm state=latest
 
-- name: copy php7.0-fpm php.ini
+- name: copy php7.1-fpm php.ini
   template: backup=no
-            dest=/etc/php/7.0/fpm/php.ini
+            dest=/etc/php/7.1/fpm/php.ini
             src=php-fpm.ini
             owner=root
             group=root
@@ -12,9 +12,9 @@
   notify:
     - restart php-fpm
 
-- name: copy php7.0-fpm config
+- name: copy php7.1-fpm config
   template: backup=no
-            dest=/etc/php/7.0/fpm/php-fpm.conf
+            dest=/etc/php/7.1/fpm/php-fpm.conf
             src=php-fpm.conf
             owner=root
             group=root
@@ -22,9 +22,9 @@
   notify:
     - restart php-fpm
 
-- name: copy php7.0-fpm www.conf
+- name: copy php7.1-fpm www.conf
   template: backup=no
-            dest=/etc/php/7.0/fpm/pool.d/www.conf
+            dest=/etc/php/7.1/fpm/pool.d/www.conf
             src=php-fpm-www.conf
             owner=root
             group=root

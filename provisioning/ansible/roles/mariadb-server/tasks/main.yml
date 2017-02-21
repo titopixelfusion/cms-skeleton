@@ -44,3 +44,6 @@
 
 - name: modify configuration file to listen on all interfaces
   lineinfile: dest=/etc/mysql/my.cnf regexp="^bind-address" line="bind-address=0.0.0.0"
+
+- name: modify configuration file to listen on all interfaces
+  lineinfile: dest=/etc/mysql/my.cnf regexp="^bind-address" line="bind-address=0.0.0.0"

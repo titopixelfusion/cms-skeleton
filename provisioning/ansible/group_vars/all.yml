@@ -1,3 +1,3 @@
 ---
-git_repo: ssh://git@bitbucket.org/PixelFusion/friendsforlife-website.git
+git_repo: git@github.com:titopixelfusion/cms-skeleton.git
 clone: false

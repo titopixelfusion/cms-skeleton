@@ -4,10 +4,10 @@
   roles:
     - dotdeb
     - base
+    - letsencrypt
     - webserver
     - php7
     - mariadb-server
-    - redis-server
-    - beanstalkd
     - elasticsearch
     - nodejs
+    - phpserver

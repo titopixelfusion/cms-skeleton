@@ -4,3 +4,4 @@ php_error_reporting: E_ALL
 php_display_errors: On
 php_startup_errors: On
 timezone: UTC
+debian_version: jessie

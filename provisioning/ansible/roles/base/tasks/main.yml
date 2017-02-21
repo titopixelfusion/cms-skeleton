@@ -17,6 +17,7 @@
     - python-setuptools
     - zsh
     - supervisor
+    - apt-transport-https
 
 - name: install pip
   easy_install: name=pip

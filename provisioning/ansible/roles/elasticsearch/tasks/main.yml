@@ -1,5 +1,4 @@
 ---
-
 - name: install OpenJDK
   apt: pkg=openjdk-7-jre state=latest
 

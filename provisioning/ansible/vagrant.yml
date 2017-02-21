@@ -6,7 +6,7 @@
       tags:
         - application
   vars:
-    phpfpm_www_listen: /var/run/php/php7.0-fpm.sock
+    phpfpm_www_listen: /var/run/php/php7.1-fpm.sock
   tasks:
     - name: copy gitconfig file
       copy:
@@ -24,15 +24,13 @@
          group=vagrant
          mode=0644
 
-    - name: switch to /vagrant after login
-      lineinfile:
-         dest=/home/vagrant/.bashrc
-         line="cd /vagrant"
-         regexp="^cd \/vagrant"
+    - name: copy bashrc file
+      copy:
+         src=templates/bashrc
+         dest=~/.bashrc
          owner=vagrant
-         state=present
-         insertafter=EOF
-         create=True
+         group=vagrant
+         mode=0644
 
     - name: setup virtualHosts
       sudo: yes

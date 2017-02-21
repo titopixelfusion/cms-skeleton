@@ -1,5 +1,5 @@
 ---
-## php7.0-fpm specific php.ini config vars
+## php7.1-fpm specific php.ini config vars
 phpfpm_expose_php: Off
 phpfpm_memory_limit: 1G
 phpfpm_max_execution_time: 30
@@ -9,11 +9,11 @@ phpfpm_startup_errors: Off
 phpfpm_post_max_size: 100M
 phpfpm_upload_max_filesize: 100M
 
-## php7.0-fpm config file (php-fpm.conf)
+## php7.1-fpm config file (php-fpm.conf)
 phpfpm_conf_log_level: notice
 
-## php7.0-fpm www pool config file (www.conf)
-phpfpm_www_listen: /var/run/php/php7.0-fpm.sock
+## php7.1-fpm www pool config file (www.conf)
+phpfpm_www_listen: /var/run/php/php7.1-fpm.sock
 phpfpm_www_pm: dynamic
 phpfpm_www_pm_max_children: 20
 phpfpm_www_pm_start_servers: 10

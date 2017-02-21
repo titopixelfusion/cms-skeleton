@@ -1,4 +1,4 @@
-admin
-=====
+CMS Skeleton
+============
 
-A Symfony project created on February 15, 2017, 8:28 pm.
+A CMS prototype powered by Symfony + Sonata + API Platform

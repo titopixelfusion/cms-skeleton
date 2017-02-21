@@ -15,7 +15,7 @@
   vars:
     nginx_worker_processes: 1
     nginx_worker_connections: 1024
-    phpfpm_www_listen: /var/run/php/php7.0-fpm.sock
+    phpfpm_www_listen: /var/run/php/php7.1-fpm.sock
   tasks:
     - name: copy gitconfig file
       copy:
