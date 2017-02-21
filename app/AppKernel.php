@@ -74,7 +74,7 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if (in_array($this->getEnvironment(), ['test', 'dev'])) {
-            return '/tmp/admin/cache/' . $this->getEnvironment();
+            return '/tmp/cms-skeleton/cache/' . $this->getEnvironment();
         }
 
         return parent::getCacheDir();

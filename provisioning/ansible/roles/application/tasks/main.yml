@@ -13,14 +13,20 @@
     - "{{ app_path }}/app/logs"
     - "{{ app_path }}/web/uploads"
 
+- stat: path={{ app_path }}/app/config/parameters.yml
+  register: parameters_file
+
 - name: composer install
   when: not vendordir.stat.exists
   composer: command=install working_dir={{ app_path }} no_dev={{ composer_no_dev }}
   register: composer_install
 
-- stat: path={{ app_path }}/app/config/parameters.yml
-  register: parameters_file
-
 - name: copy parameters file
   when: not parameters_file.stat.exists
   command: cp {{ app_path }}/app/config/parameters.yml{.dist,}
+
+- name: create database
+  command: php {{ app_path }}/app/console doctrine:database:create --if-not-exists
+
+- name: build database
+  command: php {{ app_path }}/app/console doctrine:schema:update --force

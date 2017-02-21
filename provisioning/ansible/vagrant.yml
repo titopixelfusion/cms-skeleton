@@ -47,3 +47,12 @@
     - name: reload nginx
       sudo: yes
       service: name=nginx state=reloaded
+
+    - name: create cache folder
+      file: path={{ cache_path }} state=directory
+
+    - name: make sure cache folders are writable
+      command: "setfacl {{ item }} -m u:www-data:rwX -m u:vagrant:rwX {{ cache_path }}"
+      with_items:
+        - "-R"
+        - "-dR"
